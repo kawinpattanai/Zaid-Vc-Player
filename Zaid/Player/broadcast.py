@@ -18,16 +18,12 @@ from config import BOT_USERNAME as uname, MONGO_DB_URL
 @Client.on_message(command(["broadcast", f"broadcast@{uname}"]) & ~filters.edited)
 @sudo_users_only
 async def broadcast_message_nopin(c: Client, message: Message):
-    if not message.reply_to_message:
-        pass
-    else:
+    if message.reply_to_message:
         x = message.reply_to_message.message_id
         y = message.chat.id
         sent = 0
-        chats = []
         schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
+        chats = [int(chat["chat_id"]) for chat in schats]
         for i in chats:
             try:
                 m = await c.forward_messages(i, y, x)
@@ -46,8 +42,7 @@ async def broadcast_message_nopin(c: Client, message: Message):
     sent = 0
     chats = []
     schats = await get_served_chats()
-    for chat in schats:
-        chats.append(int(chat["chat_id"]))
+    chats.extend(int(chat["chat_id"]) for chat in schats)
     for i in chats:
         try:
             m = await c.send_message(i, text=text)
@@ -61,17 +56,13 @@ async def broadcast_message_nopin(c: Client, message: Message):
 @Client.on_message(command(["broadcast_pin", f"broadcast_pin@{uname}"]) & ~filters.edited)
 @sudo_users_only
 async def broadcast_message_pin(c: Client, message: Message):
-    if not message.reply_to_message:
-        pass
-    else:
+    if message.reply_to_message:
         x = message.reply_to_message.message_id
         y = message.chat.id
         sent = 0
         pin = 0
-        chats = []
         schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
+        chats = [int(chat["chat_id"]) for chat in schats]
         for i in chats:
             try:
                 m = await c.forward_messages(i, y, x)
@@ -98,8 +89,7 @@ async def broadcast_message_pin(c: Client, message: Message):
     pin = 0
     chats = []
     schats = await get_served_chats()
-    for chat in schats:
-        chats.append(int(chat["chat_id"]))
+    chats.extend(int(chat["chat_id"]) for chat in schats)
     for i in chats:
         try:
             m = await c.send_message(i, text=text)

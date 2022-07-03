@@ -31,9 +31,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, 
 @Client.on_message(filters.new_chat_members)
 async def new_chat(c: Client, m: Message):
     chat_id = m.chat.id
-    if await is_served_chat(chat_id):
-        pass
-    else:
+    if not await is_served_chat(chat_id):
         await add_served_chat(chat_id)
     for member in m.new_chat_members:
         try:
@@ -77,12 +75,8 @@ async def chat_watcher_func(_, message: Message):
             f"👮🏼 (> {suspect} <)\n\n**Gbanned** user detected, that user has been gbanned by sudo user and was blocked from this Chat !\n\n🚫 **Reason:** potential spammer and abuser."
         )
     chat_id = message.chat.id
-    if await is_served_chat(chat_id):
-        pass
-    else:
+    if not await is_served_chat(chat_id):
         await add_served_chat(chat_id)
     user_id = message.from_user.id
-    if await is_served_user(user_id):
-        pass
-    else:
+    if not await is_served_user(user_id):
         await add_served_user(user_id)

@@ -17,35 +17,15 @@ bot = Client(
 )
 
 
-if not SESSION_NAME:
-   ASS_CLI_1 = None
-else:   
-   ASS_CLI_1 = Client(SESSION_NAME, api_id=API_ID, api_hash=API_HASH)
-   
-
-if not SESSION2:
-   user = None
-else:
-   user = Client(SESSION2, api_id=API_ID, api_hash=API_HASH)
-   
-
-if not SESSION3:
-   user3 = None
-else:
-   user3 = Client(SESSION3, api_id=API_ID, api_hash=API_HASH)
-
-if not SESSION4:
-   user4 = None
-else:
-   user4 = Client(SESSION4, api_id=API_ID, api_hash=API_HASH)
-   
-
-if not SESSION5:
-   user5 = None
-else:
-   user5 = Client(SESSION5, api_id=API_ID, api_hash=API_HASH)
-
-
+ASS_CLI_1 = (Client(SESSION_NAME, api_id=API_ID, api_hash=API_HASH)
+             if SESSION_NAME else None)
+user = Client(SESSION2, api_id=API_ID, api_hash=API_HASH) if SESSION2 else None
+user3 = (Client(SESSION3, api_id=API_ID, api_hash=API_HASH)
+         if SESSION3 else None)
+user4 = (Client(SESSION4, api_id=API_ID, api_hash=API_HASH)
+         if SESSION4 else None)
+user5 = (Client(SESSION5, api_id=API_ID, api_hash=API_HASH)
+         if SESSION5 else None)
 call_py5 = PyTgCalls(user5)
 
 with Client(":umm:", API_ID, API_HASH, bot_token=BOT_TOKEN) as app:

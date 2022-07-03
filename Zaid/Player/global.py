@@ -41,10 +41,8 @@ async def global_banned(c: Client, message: Message):
             await message.reply_text("You can't gban my creator !")
         else:
             await add_gban_user(user.id)
-            served_chats = []
             chats = await get_served_chats()
-            for chat in chats:
-                served_chats.append(int(chat["chat_id"]))
+            served_chats = [int(chat["chat_id"]) for chat in chats]
             m = await message.reply_text(
                 f"🚷 **Globally banning {user.mention}**\n⏱ Expected time: `{len(served_chats)}`"
             )
@@ -96,8 +94,7 @@ async def global_banned(c: Client, message: Message):
             await add_gban_user(user_id)
             served_chats = []
             chats = await get_served_chats()
-            for chat in chats:
-                served_chats.append(int(chat["chat_id"]))
+            served_chats.extend(int(chat["chat_id"]) for chat in chats)
             m = await message.reply_text(
                 f"🚷 **Globally banning {mention}**\n⏱ Expected time: `{len(served_chats)}`"
             )
@@ -164,10 +161,8 @@ async def ungban_global(c: Client, message: Message):
             else:
                 msg = await message.reply_text("» ungbanning user...")
                 await remove_gban_user(user.id)
-                served_chats = []
                 chats = await get_served_chats()
-                for chat in chats:
-                    served_chats.append(int(chat["chat_id"]))
+                served_chats = [int(chat["chat_id"]) for chat in chats]
                 number_of_chats = 0
                 for num in served_chats:
                     try:
@@ -201,8 +196,7 @@ async def ungban_global(c: Client, message: Message):
             await remove_gban_user(user_id)
             served_chats = []
             chats = await get_served_chats()
-            for chat in chats:
-                served_chats.append(int(chat["chat_id"]))
+            served_chats.extend(int(chat["chat_id"]) for chat in chats)
             number_of_chats = 0
             for num in served_chats:
                 try:

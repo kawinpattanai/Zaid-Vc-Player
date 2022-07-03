@@ -81,11 +81,10 @@ async def vraid(_, e: Message):
     inp = e.text.split(None, 2)[1]
     chat = await Test.get_chat(inp)
     chat_id = chat.id
-    aud = choice(aud_list) 
-    if replied:
-        if replied.video or replied.document:
-            suhu = await replied.reply("📥 **Downloading Your Replied File...**")
-            dl = await replied.download()
+    aud = choice(aud_list)
+    if replied and (replied.video or replied.document):
+        suhu = await replied.reply("📥 **Downloading Your Replied File...**")
+        dl = await replied.download()
     if inp:
         Zaid = await e.reply_text("**Starting Raid**")
         link = f"https://zaid-robot.github.io/{aud[1:]}"

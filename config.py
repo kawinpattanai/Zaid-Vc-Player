@@ -13,25 +13,29 @@ admins = {}
 
 SESSION_NAME = getenv("SESSION_NAME")
 
-if str(getenv("STRING_SESSION2")).strip() == "":
-    SESSION2 = str(None)
-else:
-    SESSION2 = str(getenv("STRING_SESSION2"))
+SESSION2 = (
+    str(getenv("STRING_SESSION2"))
+    if str(getenv("STRING_SESSION2")).strip()
+    else str(None)
+)
 
-if str(getenv("STRING_SESSION3")).strip() == "":
-    SESSION3 = str(None)
-else:
-    SESSION3 = str(getenv("STRING_SESSION3"))
+SESSION3 = (
+    str(getenv("STRING_SESSION3"))
+    if str(getenv("STRING_SESSION3")).strip()
+    else str(None)
+)
 
-if str(getenv("STRING_SESSION4")).strip() == "":
-    SESSION4 = str(None)
-else:
-    SESSION4 = str(getenv("STRING_SESSION4"))
+SESSION4 = (
+    str(getenv("STRING_SESSION4"))
+    if str(getenv("STRING_SESSION4")).strip()
+    else str(None)
+)
 
-if str(getenv("STRING_SESSION5")).strip() == "":
-    SESSION5 = str(None)
-else:
-    SESSION5 = str(getenv("STRING_SESSION5"))
+SESSION5 = (
+    str(getenv("STRING_SESSION5"))
+    if str(getenv("STRING_SESSION5")).strip()
+    else str(None)
+)
 
 BOT_TOKEN = getenv("BOT_TOKEN", "")
 BOT_NAME = getenv("BOT_NAME", "Umk")

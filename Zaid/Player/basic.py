@@ -18,12 +18,7 @@ def call_back_in_filter(data):
 def is_admin(group_id: int, user_id: int):
     try:
         user_data = bot.get_chat_member(group_id, user_id)
-        if user_data.status == 'administrator' or user_data.status == 'creator':
-            # print(f'is admin user_data : {user_data}')
-            return True
-        else:
-            # print('Not admin')
-            return False
+        return user_data.status in ['administrator', 'creator']
     except:
         # print('Not admin')
         return False
@@ -69,10 +64,8 @@ def pin(_, message):
 
     elif not is_admin(message.chat.id, message.from_user.id):
         message.reply("You're not admin")
-    elif not message.reply_to_message:
-        message.reply("Reply to a message")
     else:
-        message.reply("Make sure I'm admin and Can Pin Messages")
+        message.reply("Reply to a message")
 
 
 @bot.on_message(filters.command('unpin'))
@@ -83,21 +76,15 @@ def unpin(_, message):
             bot.unpin_chat_message(message.chat.id, message_id)
     elif not is_admin(message.chat.id, message.from_user.id):
         message.reply("You're not admin")
-    elif not message.reply_to_message:
-
-        message.reply("Reply to a message")
     else:
-        message.reply("Make sure I'm admin and Can Pin Messages")
+        message.reply("Reply to a message")
 
 
 
 @bot.on_message(filters.command("purge"))
 def purge(_, m: Message):
     if is_admin(m.chat.id, m.from_user.id) and m.reply_to_message:
-        msgs = []
-
-        for x in range(m.reply_to_message.message_id, m.message_id):
-            msgs.append(x)
+        msgs = list(range(m.reply_to_message.message_id, m.message_id))
 
         bot.delete_messages(m.chat.id, msgs)
         m.reply("Purge Complete")
